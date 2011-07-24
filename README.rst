@@ -1,18 +1,19 @@
-*openALC* is a Python userspace Windows driver for the Andor Laser
+openALC is a Python userspace Windows driver for the Andor Laser
 Combiner (ALC) from Andor Technology.
 
 .. figure:: http://www.andor.com/images/product_images/microscopy_peripherals_laser_combiner_large.jpg
    :alt: Andor Laser Combiner with Multi-port Unit on front
    
    Andor Laser Combiners supported:
-   
-   +----------+-------------------------------------+
-   | Model    | ALC-401, ALC-501, ALC-601           |
-   +----------+-------------------------------------+
-   | Platform | Windows XP 32-bit, Windows 7 64-bit |
-   +----------+-------------------------------------+
+   +-----------+-------------------------------------+
+   | Models    | ALC-401, ALC-501, ALC-601           |
+   +-----------+-------------------------------------+
+   | Platforms | Windows XP 32-bit, Windows 7 64-bit |
+   +-----------+-------------------------------------+
 
-.. contents:: 
+.. contents:: Table of Contents
+   :depth: 2
+   :backlinks: "entry"
 
 Project goal
 ============
@@ -23,7 +24,7 @@ Project goal
 
 openALC address these limitations of the Andor's SDK
 ----------------------------------------------------
-1. The Andor driver is hard coded to support the PCIM-DDA06/16_ card
+1. The Andor driver is hard coded to support the `PCIM-DDA06/16`_ card
    from Measurement Computing (MCC).  This is a problem because the
    card is not supported in all Bio-imaging softwares, and also the
    interface for this card is a +5V-only 32-bit PCI slot which is
@@ -51,15 +52,15 @@ Windows dependencies (minimum versions)
    Andor iQOpenSource_ 32-bit packages all of these and lots of
    additional useful tools like the Spyder IDE.  You need to create
    an Andor web account and login to download iQOpenSource.
-2. DeVaSys usb2i2cio_ v5.00 (choose x64 for 64-bit, or x86 for 32-bit)
-   (Optional) EzIO_ 1.09 to debug if DeVaSys does not work.
-3. You must have usbi2cio.dll in your script's Python path.  Simplest
+2. DeVaSys usb2i2cio_ v5.00.  Choose x64 for 64-bit, or x86 for 32-bit.
+3. (Optional) EzIO_ 1.09 to debug if DeVaSys does not work.
+4. You must have usbi2cio.dll in your script's Python path.  Simplest
    is to copy the dll from the directory:
-   C:\Program Files (x86)\DeVaSys\UsbI2cIo\Library Files\5.00\x64\
+   C:/Program Files (x86)/DeVaSys/UsbI2cIo/Library Files/5.00/x64/
    to the same directory where you run this Python script, like:
-   C:\spinning disk\python driver\
+   C:/spinning disk/python driver/
 
-.. _PCIM-DDA06/16: http://www.mccdaq.com/pci-data-acquisition/PCIM-DDA06-16.aspx
+.. _`PCIM-DDA06/16`: http://www.mccdaq.com/pci-data-acquisition/PCIM-DDA06-16.aspx
 .. _iQOpenSource: https://www.andor.com/download/login.aspx
 .. _usb2i2cio: http://www.devasys.net/support/support.html
 .. _EzIO: http://www.devasys.com/download/UsbI2cIo/EzIo.zip
