@@ -5,6 +5,7 @@ Combiner (ALC) from Andor Technology.
    :alt: Andor Laser Combiner with Multi-port Unit on front
    
    Andor Laser Combiners supported:
+   
    +-----------+-------------------------------------+
    | Models    | ALC-401, ALC-501, ALC-601           |
    +-----------+-------------------------------------+
@@ -55,9 +56,12 @@ Windows dependencies (minimum versions)
 2. DeVaSys usb2i2cio_ v5.00.  Choose x64 for 64-bit, or x86 for 32-bit.
 3. (Optional) EzIO_ 1.09 to debug if DeVaSys does not work.
 4. You must have usbi2cio.dll in your script's Python path.  Simplest
-   is to copy the dll from the directory:
+   is to copy the dll from the directory::
+   
    C:/Program Files (x86)/DeVaSys/UsbI2cIo/Library Files/5.00/x64/
-   to the same directory where you run this Python script, like:
+   
+   to the same directory where you run this Python script, like::
+   
    C:/spinning disk/python driver/
 
 .. _`PCIM-DDA06/16`: http://www.mccdaq.com/pci-data-acquisition/PCIM-DDA06-16.aspx
