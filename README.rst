@@ -58,11 +58,11 @@ Windows dependencies (minimum versions)
 4. You must have usbi2cio.dll in your script's Python path.  Simplest
    is to copy the dll from the directory::
    
-   C:/Program Files (x86)/DeVaSys/UsbI2cIo/Library Files/5.00/x64/
+       C:/Program Files (x86)/DeVaSys/UsbI2cIo/Library Files/5.00/x64/
    
    to the same directory where you run this Python script, like::
    
-   C:/spinning disk/python driver/
+       C:/spinning disk/python driver/
 
 .. _`PCIM-DDA06/16`: http://www.mccdaq.com/pci-data-acquisition/PCIM-DDA06-16.aspx
 .. _iQOpenSource: https://www.andor.com/download/login.aspx
