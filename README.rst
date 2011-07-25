@@ -162,48 +162,48 @@ EEPROM
   
 - Total EEPROM size is 16 KB or 0x4000:
 
-  =======  =========================================
-  Address  Content
-  =======  =========================================
-  0x0000   Firmware
-  0x2800   Andor Laser sled metadata (ASCII encoded)
-  0x3F00   Board Serial number (ASCII encoded)
-  =======  =========================================
+=======  =========================================
+Address  Content
+=======  =========================================
+0x0000   Firmware
+0x2800   Andor Laser sled metadata (ASCII encoded)
+0x3F00   Board Serial number (ASCII encoded)
+=======  =========================================
 
 - Andor Laser sled metadata reverse engineered from EEPROM:
 
-  =======  =========================================================
-  Address  Content
-  =======  =========================================================
-  0x2801   Static string 'Andor Technology'
-  0x2815   Version of storage format (only encountered '1')
-  0x281F   Model number of laser combiner (can be LC-401, 501 or 601)
-  0x2829   Date of Manufacture
-  0x2834   Date last modified
-  0x283F   Serial number of laser combiner
-  0x2857   Number of lasers (0x05 for 5 line, 0x04 for 4 line)
-  0x2858   ??? 0x61 (5 line) 0x1B (4 line)
-  0x2859   Untouched area 'FF'
-  0x2880   Serial number of Laser 1
-  0x2890   Wavelength of Laser 1
-  0x2893   Power of Laser 1
-  0x2897   AOTF MHz of Laser 1 (3 numbers before decimal)
-  0x289A   AOTF MHz of Laser 1 (3 numbers after decimal)
-  0x289D   AOTF dB of Laser 1 (2 numbers before decimal)
-  0x289F   AOTF dB of Laser 1 (1 number after decimal)
-  0x28A0   Family of Laser 1 (CUBE, EXTERNAL, MG560, SAPPHIRE, ...)
-  0x28B0   Untouched area 'FF'
-  0x2900   Model number of Laser 2
-  ...
-  0x2980   Model number of Laser 3
-  ...
-  0x3000   Model number of Laser 4
-  ...
-  0x3080   Model number of Laser 5
-  ...
-  0x3100   Model number of Laser 6
-  ...
-  =======  =========================================================
+=======  =========================================================
+Address  Content
+=======  =========================================================
+0x2801   Static string 'Andor Technology'
+0x2815   Version of storage format (only encountered '1')
+0x281F   Model number of laser combiner (can be LC-401, 501 or 601)
+0x2829   Date of Manufacture
+0x2834   Date last modified
+0x283F   Serial number of laser combiner
+0x2857   Number of lasers (0x05 for 5 line, 0x04 for 4 line)
+0x2858   ??? 0x61 (5 line) 0x1B (4 line)
+0x2859   Untouched area 'FF'
+0x2880   Serial number of Laser 1
+0x2890   Wavelength of Laser 1
+0x2893   Power of Laser 1
+0x2897   AOTF MHz of Laser 1 (3 numbers before decimal)
+0x289A   AOTF MHz of Laser 1 (3 numbers after decimal)
+0x289D   AOTF dB of Laser 1 (2 numbers before decimal)
+0x289F   AOTF dB of Laser 1 (1 number after decimal)
+0x28A0   Family of Laser 1 (CUBE, EXTERNAL, MG560, SAPPHIRE, ...)
+0x28B0   Untouched area 'FF'
+0x2900   Model number of Laser 2
+...
+0x2980   Model number of Laser 3
+...
+0x3000   Model number of Laser 4
+...
+0x3080   Model number of Laser 5
+...
+0x3100   Model number of Laser 6
+...
+=======  =========================================================
 
 I/O for global interlocks and physical safety shutter
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
