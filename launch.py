@@ -1,61 +1,27 @@
-"""
-Power up various DPSS laser models and read back fault and status conditions
+'''
+Turn on Andor Laser Launch as a 'dumb' box for Analog control
 
-* Andor uses several brands of diode solid-state continuous wave lasers in the
-  launch.
-  Supported:
-  - Coherent Cube, Sapphire
-  - Cobolt Generation 3, Generation 4
-  - External gas laser
-  Not yet supported:
-  - Cobolt Compass, Calypso
-  - Melles Griot
-  - Guess method for >4 laser line ALC not implemented yet
-"""
+Andor uses several brands of diode solid-state continuous wave lasers in the
+launch.  Rejects serial squids not on the same USB parent branch as the DeVaSys.
+'''
 
-import devasys
-import prolific
-
-class Laser:
-  """Serial laser device"""
-  type = (
-    "EXTERNAL",
-    "CUBE",
-    "SAPPHIRE",
-    "MG560",
-    ("COBOLTJIVE", "COBOLTFANDANGO", "COBOLTMAMBO"),
-    ("COBOLTJIVE4", "COBOLTFANDANGO4", "COBOLTMAMBO4"),
-  )
+from devasys import Microcontroller
+from prolific import ProlificPorts
+from laser import Cube, Sapphire, Cobolt3, Cobolt4
   
-  def __init__(self, port):
-    pass
-  
-  """
-  Each laser needs the following:
-  
-  Communication
-  - Baudrate
-  
-  Delays
-  - Each command
-  - Time-out to stabilize
-  
-  Command strings:
-  - Initialize
-  - Turn on
-  - Turn off
-  - Status condition
-  - Error condition
-  
-  Tertiary commands
-  - Power rating
-  - Regex to confirm identity of laser if unknown
-  
-  Return strings
-  - Status
-    * Power locked
-    * Warming up
-  - Error
-    * Serious fault
-    * Needs recalibration service
-  """
+class Launch():
+  def __init__(self_):
+    TYPE = (
+      'CUBE',
+      'SAPPHIRE',
+    )
+    if type not in TYPE:
+      if type in ['COBOLTJIVE', 'COBOLTFANDANGO', 'COBOLTMAMBO']:
+        type = 'COBOLT3'
+      elif type in ['COBOLTJIVE4', 'COBOLTFANDANGO4', 'COBOLTMAMBO4']:
+        type = 'COBOLT4'
+      else:
+        print 'LaserError: Unknown type of laser:', type
+        return
+    
+    
