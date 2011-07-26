@@ -61,7 +61,7 @@ Implementation
 ==============
 System Overview
 ---------------
-.. figure:: docs/system_overview.png
+.. figure:: doc/system_overview.png
    :align: center
 
 
@@ -83,10 +83,10 @@ State Definitions:
   S3 = Lock (Laser power stable)
   S4 = Error
 
-.. figure:: docs/laser_flowchart.png
+.. figure:: http://github.com/omsai/openALC/blob/master/doc/laser_flowchart.png
    :align: center
 
-.. figure:: docs/laser_statemachine.png
+.. figure:: http://github.com/omsai/openALC/blob/master/doc/laser_statemachine.png
    :align: center
 
 Coherent Sapphire
