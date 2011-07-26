@@ -1,17 +1,9 @@
 openALC is a Python userspace Windows driver for the Andor Laser
 Combiner (ALC) from Andor Technology.
 
-.. figure:: http://www.andor.com/images/product_images/microscopy_peripherals_laser_combiner_large.jpg
-   :alt: Andor Laser Combiner with Multi-port Unit on front
    
-   Andor Laser Combiners supported:
-   
-   :Models:  ALC-401, ALC-501, ALC-601
-   :Platforms:  Windows XP 32-bit, Windows 7 64-bit
-
 .. contents:: Table of Contents
    :depth: 3
-
 
 Project goal
 ============
@@ -19,6 +11,15 @@ Project goal
   directly called, starts the device without further user interaction.
 - Thus turn the combiner into a "dumb" box which responds to Analog
   voltage control.
+
+.. figure:: http://www.andor.com/images/product_images/microscopy_peripherals_laser_combiner_large.jpg
+   :alt: Andor Laser Combiner with Multi-port Unit on front
+   :align: right
+   
+   Andor Laser Combiners supported:
+   
+   :ALC Models:  401, 501
+   :Windows Platforms:  XP 32bit, 7 64bit
 
 openALC address these limitations of the Andor's SDK
 ----------------------------------------------------
@@ -58,16 +59,11 @@ Windows dependencies (minimum versions)
 
 Implementation
 ==============
-Python
-------
-- Easy language for non-professional programmers in Life Sciences
-  to debug.
-- Low barrier to tweak program code since it is a scripting language
-  and thus no development enviroment needs setup.
-- PySerial module does not lock up COM ports when the program exists
-  unexpectedly.
-- Builtin ctypes module allows communication with the DeVaSys C
-  library.
+System Overview
+---------------
+.. figure:: docs/system_overview.png
+   :align: center
+
 
 Laser control using State Machines
 ----------------------------------
@@ -86,6 +82,12 @@ State Definitions:
   S2 = Warmup (or Seeking power lock)
   S3 = Lock (Laser power stable)
   S4 = Error
+
+.. figure:: docs/laser_flowchart.png
+   :align: center
+
+.. figure:: docs/laser_statemachine.png
+   :align: center
 
 Coherent Sapphire
 ~~~~~~~~~~~~~~~~~
@@ -144,6 +146,7 @@ S3     11xx   S4         0
 
 .. [*] S4 if >3 min in this state
 
+
 DeVaSys microcontroller
 -----------------------
 DeVaSys is the brand of development board used in the Andor laser
@@ -184,7 +187,7 @@ Address  Content
 0x2857   Number of lasers (0x05 for 5 line, 0x04 for 4 line)
 0x2858   ??? 0x61 (5 line) 0x1B (4 line)
 0x2859   Untouched area 'FF'
-0x2880   Serial number of Laser 1
+0x2880   Model number of Laser 1
 0x2890   Wavelength of Laser 1
 0x2893   Power of Laser 1
 0x2897   AOTF MHz of Laser 1 (3 numbers before decimal)
@@ -228,3 +231,15 @@ LED 3 on     0xB6   0xDD
 LED 4 on     0xB6   0xDC
 LED 5 on     0xB6   0xCD
 ===========  =====  =====
+
+
+Programming in Python
+---------------------
+- Easy language for non-professional programmers in Life Sciences
+  to debug.
+- Low barrier to tweak program code since it is a scripting language
+  and thus no development enviroment needs setup.
+- PySerial module does not lock up COM ports when the program exists
+  unexpectedly.
+- Builtin ctypes module allows communication with the DeVaSys C
+  library.
