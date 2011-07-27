@@ -8,7 +8,7 @@ launch.  Rejects serial squids not on the same USB parent branch as the DeVaSys.
 from devasys import Microcontroller
 from prolific import ProlificPorts
 from laser import Cube, Sapphire, Cobolt3, Cobolt4
-  
+
 class Launch():
   def __init__(self_):
     TYPE = (

@@ -1,9 +1,10 @@
-openALC is a Python userspace Windows driver for the Andor Laser
+`openALC` is a Python userspace Windows driver for the Andor Laser
 Combiner (ALC) from Andor Technology.
 
    
 .. contents:: Table of Contents
    :depth: 3
+   :backlinks: top
 
 Project goal
 ============
@@ -12,17 +13,14 @@ Project goal
 - Thus turn the combiner into a "dumb" box which responds to Analog
   voltage control.
 
+:Models supported:  401, 501
+:Windows platforms: XP 32bit, 7 64bit
+
 .. figure:: http://www.andor.com/images/product_images/microscopy_peripherals_laser_combiner_large.jpg
    :alt: Andor Laser Combiner with Multi-port Unit on front
-   :align: right
-   
-   Andor Laser Combiners supported:
-   
-   :ALC Models:  401, 501
-   :Windows Platforms:  XP 32bit, 7 64bit
 
-openALC address these limitations of the Andor's SDK
-----------------------------------------------------
+openALC address these limitations of Andor's SDK
+------------------------------------------------
 1. The Andor driver is hard coded to support the `PCIM-DDA06/16`_ card
    from Measurement Computing (MCC).  This is a problem because the
    card is not supported in all Bio-imaging softwares, and also the
@@ -65,11 +63,14 @@ System Overview
    :align: center
 
 
+
+Research behind making this work
+================================
 Laser control using State Machines
 ----------------------------------
 Each laser is itself a finite state machine.  We need a Mealy State 
-machine to monitor the laser's state progression and with the input as 
-the laser state, and the output to indicate if this is normal or if
+machine to monitor the laser's state progression with the input as the
+current laser state, and the output to indicate if this is normal or if
 some error handling needs to be applied.
 
 Outputs:
@@ -85,14 +86,16 @@ State Definitions:
 
 .. figure:: http://github.com/omsai/openALC/raw/master/doc/laser_flowchart.png
    :align: center
+   :scale: 50%
 
 .. figure:: http://github.com/omsai/openALC/raw/master/doc/laser_statemachine.png
    :align: center
+   :scale: 50%
 
 Coherent Sapphire
 ~~~~~~~~~~~~~~~~~
 Inputs (result of `?STA` command):
-  1 = St
+  1 = St'
   2 = Warm up
   3 = Stand by
   4 = Laser on
@@ -220,6 +223,8 @@ I/O for global interlocks and physical safety shutter
 
 LED front panel control
 ~~~~~~~~~~~~~~~~~~~~~~~
+Probing the i2c pins of the DeVaSys board showed the following
+signalling when the Andor driver turns on and off the front panel LEDs:
 
 ===========  =====  =====
 i2c address  &0x40  &0x42
@@ -232,6 +237,10 @@ LED 4 on     0xB6   0xDC
 LED 5 on     0xB6   0xCD
 ===========  =====  =====
 
+The wires were probed using a `Saleae Logic analyzer`_ which also converts
+the i2c bits into ASCII of hex.
+
+.. _`Saleae Logic analyzer`: http://www.saleae.com/logic/
 
 Programming in Python
 ---------------------

@@ -18,7 +18,7 @@ class Usb2i2cio:
     # FIXME: handle library not found error
     self.handle = self.lib.DAPI_OpenDeviceInstance('UsbI2cIo', 0)
     if self.handle is -1:
-      exit('DeVaSys board not found')
+      exit('(EE) DeVaSys board not found')
   
   def write_i2c_leds(self,value):
     '''Write 2 bytes of LED data indicating laser fault and activity
@@ -27,7 +27,7 @@ class Usb2i2cio:
     h = self.handle
     dvs = self.lib
     byTransType = 0x00  # I2C_TRANS_NOADR
-    wCount = 1 # 2 bytes of zeroes, 1 byte of real information
+    wCount = 1          # 2 bytes of zeroes, 1 byte of real information
     format = 'BBHB'
     for i in range(255):
       format = format + 'x'
@@ -37,14 +37,14 @@ class Usb2i2cio:
       p_i2c_Trans = pointer(i2c_Trans)
       length_chk = dvs.DAPI_WriteI2c(h, p_i2c_Trans)
       if (length_chk != wCount):
-        print 'ERR: WriteI2C(&i2c_Trans) failed,', \
+        print '(WW) WriteI2C(&i2c_Trans) failed,', \
               length_chk, 'of', wCount, 'bytes written'
   
   def read_EEPROM(self,start,length,save_file=None,BCD=False):
     '''Get available lasers by reading EEPROM using i2c'''
     data = ''
     if save_file is not None:
-      print 'Saving raw data to file:', file
+      print '(II) Saving raw data to file:', file
       f = open(save_file,'wb')
     h = self.handle
     dvs = self.lib
@@ -229,6 +229,7 @@ if __name__ == '__main__':
           SERIAL : LC-0533
   '''
   micro = Microcontroller()
+  micro.bypass()
   
   #micro.set_active_leds(2)
   #exit(0)

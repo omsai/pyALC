@@ -29,14 +29,14 @@ class ProlificPorts:
         self.arch = 64
         self.prolific_path = OpenKey(HKEY_LOCAL_MACHINE, SER2PL64)
       except WindowsError:
-        exit('DriverError: No Ser2pl or Ser2pl64 service found to control '+
+        exit('(EE) No Ser2pl or Ser2pl64 service found to control '+
              'Prolific USB-serial COM ports.  Is the Prolific driver'+
              'installed?')
     self.ports, type = QueryValueEx(self.prolific_path, 'Count')
-    print 'Number of devices using', 'Ser2pl' + str(self.arch),\
+    print '(II) Number of devices using', 'Ser2pl' + str(self.arch),\
           'service:', self.ports
     if self.ports is 0:
-      exit('No Prolific USB-serial COM ports found')
+      exit('(EE) No Prolific USB-serial COM ports found')
     self.COM = [0] * self.ports
     self.get_squids()
     self.enumerate_ports()
@@ -89,5 +89,5 @@ if __name__ == '__main__':
   COM ports: ['COM55', 'COM56', 'COM57', 'COM58']
   '''
   prolific = ProlificPorts()
-  print 'Found Squids:', prolific.squids
-  print 'Ordered COM ports:', prolific.COM
+  print '(II) Found Squids:', prolific.squids
+  print '(II) Ordered COM ports:', prolific.COM
