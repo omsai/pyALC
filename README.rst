@@ -57,11 +57,21 @@ Windows dependencies (minimum versions)
 
 Implementation
 ==============
+Programming in Python
+---------------------
+- Easy language for non-professional programmers in Life Sciences
+  to debug.
+- Low barrier to tweak program code since it is a scripting language
+  and thus no development enviroment needs setup.
+- PySerial module does not lock up COM ports when the program exists
+  unexpectedly.
+- Builtin ctypes module allows communication with the DeVaSys C
+  library.
+
 System Overview
 ---------------
 .. figure:: https://github.com/omsai/openALC/raw/master/doc/system_overview.png
    :align: center
-
 
 
 Research behind making this work
@@ -254,15 +264,14 @@ LED 5 on     0xB6   0xCD
 The wires were probed using a `Saleae Logic analyzer`_ which also converts
 the i2c bits into ASCII of hex.
 
-.. _`Saleae Logic analyzer`: http://www.saleae.com/logic/
+.. figure:: http://github.com/omsai/openALC/raw/master/doc/i2c_logic_analyzer.png
+   :align: center
+   :scale: 50%
+   
+.. figure:: http://github.com/omsai/openALC/raw/master/doc/saleae_led1on.png
+   :align: center
+   :scale: 50%
 
-Programming in Python
----------------------
-- Easy language for non-professional programmers in Life Sciences
-  to debug.
-- Low barrier to tweak program code since it is a scripting language
-  and thus no development enviroment needs setup.
-- PySerial module does not lock up COM ports when the program exists
-  unexpectedly.
-- Builtin ctypes module allows communication with the DeVaSys C
-  library.
+Figure: i2c data showing 0x96 being sent to address 0x40 to turn LED #1 on
+
+.. _`Saleae Logic analyzer`: http://www.saleae.com/logic/
