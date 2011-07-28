@@ -131,6 +131,8 @@ class Laser:
         print '(WW) serial_check(): Expected', expected_output_item,\
               'but got', output
         output_list.append(False)
+    
+    return output_list
   
   def run(self, loop=False):
     '''Loop the laser state machine until it reaches '''
@@ -149,13 +151,19 @@ class Laser:
     state_history = []
     machine_input = self.serial_check(self.CHECK_STATUS,
                                       [self.list_to_str(range(1,7))])
-    print 'Machine input:', machine_input
+    state_history.append(S[machine_state])
     
     i = 100 # FIXME: timeout
     
     while(i > 0):
-      machine_state, expected_state, next_command = \
-      self.TRANSITION_MATRIX[machine_state, tuple(machine_input)]
+      try:
+        machine_state, expected_state, next_command = \
+          self.TRANSITION_MATRIX[machine_state, tuple(machine_input)]
+      except TypeError:
+        print 'Variables values:'
+        print 'machine_state', machine_state
+        print 'machine_input', machine_input
+        raise
       
       state_history.append(S[machine_state])
       try:
@@ -175,8 +183,9 @@ class Laser:
         print '(II) State machine completed successfully'
         
       if next_command is not None:
-        machine_input = self.serial_check(self.CHECK_STATUS, str(range(1,7)))
-        print 'Machine input:', machine_input
+        machine_input = self.serial_check(self.CHECK_STATUS,
+                                          [self.list_to_str(range(1,7))])
+        #print 'Machine input:', machine_input
       
       i -= 1
     
