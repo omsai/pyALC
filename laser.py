@@ -43,7 +43,7 @@ class Laser:
       self.ser.close() # since an exception leaves the COM port open
       raise
   
-  def serial_check(self, command_list, expected_output_list=None, verbose=True):
+  def serial_check(self, command_list, expected_output_list=None):
     '''Process multiple serial commands compare against expected output.
     
     Arguments:
@@ -61,6 +61,7 @@ class Laser:
     purposes, but otherwise it's bad practise so a warning is printed.  If one
     expects no output for a command, use `None`.
     '''
+    verbose=True
     output_list = []
     
     if not (isinstance(command_list,tuple) or isinstance(command_list,list)):
@@ -80,7 +81,7 @@ class Laser:
       output = self.ser.readlines() # takes seconds to read all lines
       
       if verbose:
-        print rjust(command,20), ":", output,
+        print rjust(command,20), ':', output,
       
       if expected_output is None:
         # One should always specify the output but don't make a big deal of it
@@ -93,40 +94,37 @@ class Laser:
         # Assume it is 'dumb', so function terminates ok
         output_list.append(None)
         continue
-        
+      
       if not isinstance(output,list): # readlines always returns a list
         # Output should always be a list
         print '(EE) serial_check(): Output of', command, ':', output,\
               'but cannot parse since it is not a list'
         output_list.append(output)
-      
+       
       output_found = 0
-      iterate_expected = 1
-      expected_output_item = expected_output
       
-      if isinstance(expected_output,list) or\
-         isinstance(expected_output,tuple):
-        iterate_expected = len(expected_output)
-        print "Output list length =", iterate_expected
-        expected_output_item = expected_output[0]
-      
-      while iterate_expected > 0:
+      for string in output:
+        # first assume number of expected outputs to check is just 1
+        i = 1
+        expected_output_item = expected_output
         
-        for string in output:
+        # if multiple outputs are possible for this command,
+        #   increase the expected_output list iteration
+        if isinstance(expected_output,list) or\
+           isinstance(expected_output,tuple):
+          i = len(expected_output)
+          expected_output_item = str(expected_output[0])
+        
+        while i > 0 and not output_found:
           stripped_output = string.strip(self.JUNK_CHARACTERS)
           if stripped_output == expected_output_item:
-            output_list.append(stripped_output)
             output_found = 1
-            break
-            if verbose:
-              print '-OK'
-          iterate_expected -= 1
-          print "Iterate expected =", iterate_expected
-          if iterate_expected > 0:
-            expected_output_item = expected_output[iterate_expected]
-        
-        if output_found:
-          break
+            output_list.append(stripped_output)
+            print '-OK'
+            i = 1
+          i -= 1
+          if i > 0:
+            expected_output_item = str(expected_output[i])
       
       if not output_found:
         print '-Expected output not found'
@@ -150,7 +148,7 @@ class Laser:
     machine_state = 's0'
     state_history = []
     machine_input = self.serial_check(self.CHECK_STATUS,
-                                      self.list_to_str(range(1,7)))
+                                      [self.list_to_str(range(1,7))])
     print 'Machine input:', machine_input
     
     i = 100 # FIXME: timeout
