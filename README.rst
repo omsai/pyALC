@@ -121,6 +121,20 @@ S3     1-4    S4         0
 
 .. [*] S4 if >5 min in this state
 
+There is a bug with the Sapphire laser where sometimes it will not
+start.  The following was found::
+
+    (II) Successfully opened serial port COM202
+                 >=0 : ['>=0\r\n'] -OK
+                 L=1 : ['L=1\r\n', '\r\n', 'Fault(s):\r\n', '\tHDeeprom\r\n', '\tPSeeprom\r\n', '\tMisMatch\r\n', '\tEEpot1\r\n'] -OK
+                ?STA : ['?STA\r\n', '6\r\n'] -OK
+                ?STA : ['?STA\r\n', '6\r\n'] -OK
+    (EE) Broke out of state machine. State History:
+    ['Unknown laser state', 'Interlock open', 'Error']
+
+The workaround is to try starting the laser a few times :/
+More investigation into this is needed
+	
 Cobolt Generation 4
 ~~~~~~~~~~~~~~~~~~~
 Inputs (result of `leds?` command):
