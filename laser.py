@@ -127,6 +127,10 @@ class Laser:
             expected_output_item = str(expected_output[i])
       
       if not output_found:
+        # FIXME: Return value of `False` is difficult handle.
+        #   This would be better if there was a `tries` variable for the
+        #   serial_check function to attempt to get the value it wants.
+        #   default could be 3?
         print '-Expected output not found'
         print '(WW) serial_check(): Expected', expected_output_item,\
               'but got', output
@@ -156,6 +160,8 @@ class Laser:
     i = 100 # FIXME: timeout
     
     while(i > 0):
+      print machine_state, ':', machine_input
+      
       try:
         machine_state, expected_state, next_command = \
           self.TRANSITION_MATRIX[machine_state, tuple(machine_input)]
@@ -181,15 +187,28 @@ class Laser:
       
       if machine_state == 's3':
         print '(II) State machine completed successfully'
+        break
         
       if next_command is not None:
+        machine_input = self.serial_check(next_command,
+                                          next_command)
         machine_input = self.serial_check(self.CHECK_STATUS,
                                           [self.list_to_str(range(1,7))])
+        
+        if machine_input == [False]:
+          # Laser has glitched or does not produce sane output
+          # FIXME: This should be fixed in serial_check
+          machine_input = self.serial_check(self.CHECK_STATUS,
+                                            [self.list_to_str(range(1,7))])
         #print 'Machine input:', machine_input
       
       i -= 1
     
-    from sys import exit; exit(0)
+    print '(II) run() ended'
+    
+  def stop(self):
+    # FIXME: Implement this
+    pass
     
   def bin_expand(binary):
     '''Returns binary permutations from a string of 1, 0 and x (don't care)
