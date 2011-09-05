@@ -1,4 +1,8 @@
-`openALC` is a Python userspace Windows driver for the Andor Laser
+**Update: the goals of this project have been superseded by the official**
+**Andor SDK.  This additional functionality was implemented by Andor on**
+**August 25, 2011.**
+
+`pyALC` is a Python userspace Windows driver for the Andor Laser
 Combiner (ALC) from Andor Technology.
 
    
@@ -19,13 +23,14 @@ Project goal
 .. figure:: http://www.andor.com/images/product_images/microscopy_peripherals_laser_combiner_large.jpg
    :alt: Andor Laser Combiner with Multi-port Unit on front
 
-openALC address these limitations of Andor's SDK
+pyALC address these limitations of Andor's SDK
 ------------------------------------------------
 1. The Andor driver is hard coded to support the `PCIM-DDA06/16`_ card
    from Measurement Computing (MCC).  This is a problem because the
    card is not supported in all Bio-imaging softwares, and also the
    interface for this card is a +5V-only 32-bit PCI slot which is
-   uncommon on many modern PCs.
+   uncommon on many modern PCs. **Update: Andor has made the their SDK
+   independent of the DAC card**
 2. Closed source library.
 3. Not freely available for download.
 
@@ -70,7 +75,7 @@ Programming in Python
 
 System Overview
 ---------------
-.. figure:: https://github.com/omsai/openALC/raw/master/doc/system_overview.png
+.. figure:: https://github.com/omsai/pyALC/raw/master/doc/system_overview.png
    :align: center
 
 
@@ -94,11 +99,11 @@ State Definitions:
   S3 = Lock (Laser power stable)
   S4 = Error
 
-.. figure:: http://github.com/omsai/openALC/raw/master/doc/laser_flowchart.png
+.. figure:: http://github.com/omsai/pyALC/raw/master/doc/laser_flowchart.png
    :align: center
    :scale: 50%
 
-.. figure:: http://github.com/omsai/openALC/raw/master/doc/laser_statemachine.png
+.. figure:: http://github.com/omsai/pyALC/raw/master/doc/laser_statemachine.png
    :align: center
    :scale: 50%
 
@@ -264,11 +269,11 @@ LED 5 on     0xB6   0xCD
 The wires were probed using a `Saleae Logic analyzer`_ which also converts
 the i2c bits into ASCII of hex.
 
-.. figure:: http://github.com/omsai/openALC/raw/master/doc/i2c_logic_analyzer.png
+.. figure:: http://github.com/omsai/pyALC/raw/master/doc/i2c_logic_analyzer.png
    :align: center
    :scale: 50%
    
-.. figure:: http://github.com/omsai/openALC/raw/master/doc/saleae_led1on.png
+.. figure:: http://github.com/omsai/pyALC/raw/master/doc/saleae_led1on.png
    :align: center
    :scale: 50%
 
