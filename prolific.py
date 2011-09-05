@@ -56,7 +56,7 @@ class ProlificPorts:
     except WindowsError:
       pass
   
-  def enumerate_ports(self, squid):
+  def enumerate_ports(self):
     '''List COM ports of each unique squid'''
     ENUM = 'SYSTEM\\CurrentControlSet\\Enum\\'
     try:
